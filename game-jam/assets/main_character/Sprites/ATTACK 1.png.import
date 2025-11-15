@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxy62rhocd2bo"
-path="res://.godot/imported/IdleCat.png-5dd386dd0b37b86a4065f7fdecd27a03.ctex"
+uid="uid://creestaficoif"
+path="res://.godot/imported/ATTACK 1.png-8e489f2a5c4ccc5dcbc5b30df07b6252.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/main_character/IdleCat.png"
-dest_files=["res://.godot/imported/IdleCat.png-5dd386dd0b37b86a4065f7fdecd27a03.ctex"]
+source_file="res://assets/main_character/Sprites/ATTACK 1.png"
+dest_files=["res://.godot/imported/ATTACK 1.png-8e489f2a5c4ccc5dcbc5b30df07b6252.ctex"]
 
 [params]
 
