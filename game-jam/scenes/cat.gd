@@ -1,14 +1,16 @@
+class_name player
 extends CharacterBody2D
 
 
 var health :int = 100
 var damage: int = 20
-const SPEED = 150.0
-const JUMP_VELOCITY = -300.0
+const SPEED = 250.0
+const JUMP_VELOCITY = -350.0
 var DASH_SPEED := 4
 var is_dashing := false
 var is_attacking := false
 var is_looking_down := false
+var can_control := true
 var facing:= 0
 @onready var healthbar := $Label/ProgressBar
 @onready var attack_collision = $AttackArea/CollisionShape2D
@@ -23,6 +25,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
 	
+	if not can_control: return
 	if Input.is_action_just_pressed("jump") && jump_count < 1:
 		$Sounds/JumpSound.play()
 		velocity.y = JUMP_VELOCITY  
@@ -46,11 +49,18 @@ func _physics_process(delta: float) -> void:
 		if not is_dashing and direction:
 			$Sounds/DashSound.play()
 			start_dash()
-	if Input.is_action_just_pressed("attack"):
-		if not is_attacking:
-			is_attacking = true
-			attack_collision.disabled = false
-			$Sounds/AttackSound.play()
+	
+	if Input.is_action_just_pressed("attack") and not is_attacking:
+		is_attacking = true
+		attack_collision.disabled = false
+
+		if is_looking_down:
+			animated_sprite.play("attack_down")
+		else:
+			animated_sprite.play("attack")
+		$Sounds/AttackSound.play()
+	
+	
 	if Input.is_action_just_pressed("attack_down"):
 		attack_collision.rotation_degrees = 90
 		$AttackArea.position.y += 20
@@ -74,13 +84,9 @@ func _physics_process(delta: float) -> void:
 
 func handle_animations(dir: float)-> void:
 	
-	if is_dashing: animated_sprite.play("dashing")
-	elif is_attacking: 
-		if animated_sprite.animation != "attack" and animated_sprite.animation != "attack_down":
-			if is_looking_down:
-				animated_sprite.play("attack_down")
-			else:
-				animated_sprite.play("attack")
+	if is_attacking: return
+	elif is_dashing: animated_sprite.play("dashing")
+		
 	else:
 		if is_on_floor():	
 			jump_count = 0
@@ -114,3 +120,15 @@ func take_damage(amount: int, damage_dir: Vector2) -> void:
 	velocity += damage_dir.normalized() * 100
 	
 	
+func handle_danger()->void:
+	$Sounds/Fahh.play()
+	can_control = false
+	set_health(0)
+	
+	await get_tree().create_timer(1).timeout
+	reset_player()
+	
+func reset_player()->void:
+	global_position = Vector2(535.0,302.0)
+	can_control = true
+	set_health(100)
