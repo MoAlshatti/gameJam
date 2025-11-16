@@ -12,12 +12,13 @@ var playerInRange = false;
 @onready var animated_sprite = $AnimatedSprite2D
 
 @onready var attackArea = $PlayerDetection
+@onready var hitArea = $Hitbox
 # This variable will store a reference to the player (the "cat")
 var player_target: Node2D = null
 # The _ready() function runs once when the boss enters the scene.
 # We'll use it to find the player.
 func _ready():
-	healthbar.value = 100
+	set_health(health)
 	# This line searches the entire game scene
 	# for the first node in the "player" group.
 	player_target = get_tree().get_first_node_in_group("player")
@@ -30,6 +31,7 @@ func _ready():
 
 func _physics_process(delta):
 	
+	set_health(health)
 	if healthbar.value <= 0:
 		queue_free()
 	
@@ -47,24 +49,26 @@ func _physics_process(delta):
 	if velocity.x > 0:
 		animated_sprite.flip_h = false
 		attackArea.scale.x = 1
+		hitArea.scale.x= 1
 		
 	elif velocity.x < 0:
 		animated_sprite.flip_h = true
 		attackArea.scale.x = -1
+		hitArea.scale.x= -1
 
 
 var attacks = ["Attack1", "Attack2"]
 func on_animation_finished(anim_name: StringName) -> void:
 	if(playerInRange):
 		var attackType = attacks[randi_range(0,1)]
-		#animation_player.play(attackType)
+		animation_player.play(attackType)
 	else:
 		animation_player.play("idle")
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		playerInRange = true
 		var attackType = attacks[randi_range(0,1)]
-		#animation_player.play(attackType)
+		animation_player.play(attackType)
 
 func _on_hitbox_entered(body: Node2D) -> void:
 	#body.take_damage()
@@ -82,5 +86,5 @@ func set_health(new_health: int)-> void:
 	healthbar.value = health
 	
 func take_damage(amount: int) -> void:
-	set_health(max(health-amount,0))
+	set_health(max(healthbar.value-amount,0))
 	animated_sprite.play("hit")
