@@ -133,3 +133,8 @@ func reset_player()->void:
 	global_position = Vector2(535.0,302.0)
 	can_control = true
 	set_health(100)
+
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body is boss:
+		body.take_damage(damage)

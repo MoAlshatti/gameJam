@@ -462,6 +462,8 @@ wait_time = 0.16
 one_shot = true
 
 [node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(-29, 0)
@@ -498,3 +500,4 @@ value = 40.0
 show_percentage = false
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_finished"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

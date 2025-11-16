@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://boxo4re3d0t20"]
+[gd_scene load_steps=6 format=3 uid="uid://do3rk0pcvfcym"]
 
 [ext_resource type="PackedScene" uid="uid://c6bjxupm1biv8" path="res://scenes/cat.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://7tfw7esy3a5i" path="res://scenes/tile_map_layer.tscn" id="2_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://coxbagie8q4du" path="res://scenes/danger_zone.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" path="res://scenes/tile_map_layer.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" path="res://scenes/danger_zone.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://qxfwvb01spn5" path="res://scenes/MainBoss.tscn" id="4_lbhrr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lbhrr"]

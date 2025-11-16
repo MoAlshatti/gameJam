@@ -23,10 +23,6 @@ window/size/mode=3
 
 enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg", "res://addons/relative_line_numbers/plugin.cfg")
 
-[global_group]
-
-player=""
-
 [input]
 
 left={

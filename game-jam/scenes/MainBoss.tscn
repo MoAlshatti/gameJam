@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://qxfwvb01spn5"]
+[gd_scene load_steps=88 format=3 uid="uid://qxfwvb01spn5"]
 
 [ext_resource type="Script" uid="uid://nnojmf3u50e5" path="res://scenes/main_boss.gd" id="1_cobqp"]
 [ext_resource type="Texture2D" uid="uid://cc7gprfxssaer" path="res://assets/Undead executioner puppet/png/attacking.png" id="1_eidx3"]
@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dmv07ojvh41vp" path="res://assets/Undead executioner puppet/png/summon.png" id="5_bs1fo"]
 [ext_resource type="Texture2D" uid="uid://ck50dakugu7gr" path="res://assets/Undead executioner puppet/png/skill1.png" id="6_quolt"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gqs53"]
-radius = 16.03122
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cobqp"]
+size = Vector2(25, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2qri6"]
 atlas = ExtResource("1_eidx3")
@@ -850,14 +850,17 @@ radius = 30.0
 radius = 4.2106094
 height = 31.598675
 
-[node name="MainBoss" type="CharacterBody2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cobqp"]
+bg_color = Color(0.52659196, 0, 0.20199108, 1)
+
+[node name="MainBoss" type="CharacterBody2D" groups=["boss"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_cobqp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, -4)
-shape = SubResource("CircleShape2D_gqs53")
+position = Vector2(-5.5, 7)
+shape = SubResource("RectangleShape2D_cobqp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ium7p")
@@ -885,6 +888,21 @@ position = Vector2(35, 10)
 rotation = -0.1675516
 shape = SubResource("CapsuleShape2D_1hh4d")
 disabled = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Label"]
+layout_mode = 0
+offset_left = -27.999998
+offset_top = -21.000004
+offset_right = 56.0
+offset_bottom = 5.999996
+scale = Vector2(0.62896603, 0.15709907)
+theme_override_styles/fill = SubResource("StyleBoxFlat_cobqp")
+value = 40.0
+show_percentage = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="on_animation_finished"]
